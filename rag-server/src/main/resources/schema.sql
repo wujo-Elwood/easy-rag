@@ -67,10 +67,6 @@ CREATE TABLE IF NOT EXISTS ai_model_provider (
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Insert default Mimo provider
-INSERT INTO ai_model_provider (name, base_url, api_key, model, is_active)
-VALUES ('Mimo', 'https://token-plan-cn.xiaomimimo.com', 'tp-cuwmnxeay8u0manei83xap8qfw5mx26qulv7s773gt7hb4kr', 'mimo-v2.5-pro', 1);
-
 -- Usage Log Table
 CREATE TABLE IF NOT EXISTS ai_usage_log (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
