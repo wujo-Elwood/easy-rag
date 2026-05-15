@@ -1,0 +1,58 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: rag-server
+
+  # MySQL
+  datasource:
+    url: jdbc:mysql://localhost:3306/rag_db?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Root2022!@#
+
+  # 文件上传大小限制
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+# Embedding 模型（Ollama）
+embedding:
+  api-url: ${EMBEDDING_API_URL:http://localhost:11434/api/embeddings}
+  model: ${EMBEDDING_MODEL:bge-m3}
+
+# 日志
+logging:
+  level:
+    com.rag: DEBUG
+
+# MyBatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.rag.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+# 文件存储目录
+file:
+  upload-dir: ${FILE_UPLOAD_DIR:D:/workspace/wujo_rag/uploads}
+
+# Qdrant 向量数据库
+qdrant:
+  host: ${QDRANT_HOST:localhost}
+  port: ${QDRANT_PORT:6333}
+  collection: ${QDRANT_COLLECTION:rag_chunks}
+  upsert-batch-size: ${QDRANT_UPSERT_BATCH_SIZE:100}
+
+# RAG 参数
+rag:
+  chunk-size: 500
+  chunk-overlap: 100
+  top-k: 5
+
+# JWT
+jwt:
+  secret: ${JWT_SECRET:rag-knowledge-base-system-jwt-secret-key-2024}
+  expiration: 86400000

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rag.mapper.KnowledgeBaseMapper">
+
+    <select id="findById" resultType="com.rag.entity.KnowledgeBase">
+        SELECT * FROM kb_knowledge_base WHERE id = #{id}
+    </select>
+
+    <!-- 查询用户可见的知识库：自己的全部 + 他人的公开的 -->
+    <select id="findVisible" resultType="com.rag.entity.KnowledgeBase">
+        SELECT * FROM kb_knowledge_base
+        WHERE create_user = #{userId}
+           OR visibility = 'PUBLIC'
+        ORDER BY create_time DESC
+    </select>
+
+    <insert id="insert" parameterType="com.rag.entity.KnowledgeBase" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO kb_knowledge_base (name, description, create_user, visibility, create_time)
+        VALUES (#{name}, #{description}, #{createUser}, #{visibility}, NOW())
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM kb_knowledge_base WHERE id = #{id}
+    </delete>
+
+</mapper>

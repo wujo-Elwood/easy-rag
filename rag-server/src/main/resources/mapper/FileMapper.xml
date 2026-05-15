@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rag.mapper.FileMapper">
+
+    <!-- 根据文件编号查询文件信息 -->
+    <select id="findById" resultType="com.rag.entity.KbFile">
+        SELECT *
+        FROM kb_file
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据知识库编号查询文件列表 -->
+    <select id="findByKbId" resultType="com.rag.entity.KbFile">
+        SELECT *
+        FROM kb_file
+        WHERE kb_id = #{kbId}
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 新增文件信息 -->
+    <insert id="insert" parameterType="com.rag.entity.KbFile" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO kb_file (kb_id, file_name, file_type, file_size, file_path, status, create_time)
+        VALUES (#{kbId}, #{fileName}, #{fileType}, #{fileSize}, #{filePath}, #{status}, NOW())
+    </insert>
+
+    <!-- 更新文件处理状态 -->
+    <update id="updateStatus">
+        UPDATE kb_file
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据文件编号删除文件信息 -->
+    <delete id="deleteById">
+        DELETE FROM kb_file
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

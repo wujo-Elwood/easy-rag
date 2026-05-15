@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rag.mapper.UserMapper">
+
+    <!-- 根据用户编号查询用户信息 -->
+    <select id="findById" resultType="com.rag.entity.SysUser">
+        SELECT *
+        FROM sys_user
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据用户名查询用户信息 -->
+    <select id="findByUsername" resultType="com.rag.entity.SysUser">
+        SELECT *
+        FROM sys_user
+        WHERE username = #{username}
+    </select>
+
+    <!-- 新增用户信息 -->
+    <insert id="insert" parameterType="com.rag.entity.SysUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user (username, password, nickname, create_time)
+        VALUES (#{username}, #{password}, #{nickname}, NOW())
+    </insert>
+
+</mapper>
